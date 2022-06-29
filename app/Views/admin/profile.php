@@ -18,8 +18,12 @@
             <h6 class="m-0 font-weight-bold text-primary">Edit Profile</h6>
         </div>
         <div class="card-body">
-            <div class="row mb-4">
-                <img class="mx-auto rounded-circle bg-dark" src="<?= base_url(); ?>/assets/uploads/img/profile/<?= $user['foto']; ?>" alt="<?= $user['foto']; ?>" height="200px" width="200px">
+            <div class="row justify-content-center mb-4">
+                <!-- Button trigger modal -->
+                <a data-toggle="modal" href="#fotoProfileModal">
+                    <img class="mx-auto rounded-circle bg-dark" id="img-profile" src="<?= base_url(); ?>/assets/uploads/img/profile/<?= $user['foto']; ?>" alt="<?= $user['foto']; ?>" height="200px" width="200px">
+                </a>
+
             </div>
             <form action="<?= base_url(); ?>/profile/<?= $user['id']; ?>" method="POST" enctype="multipart/form-data">
                 <div class="row mx-auto">
@@ -67,7 +71,7 @@
                         <select class='form-control' id="jenis_kelamin" name="jenis_kelamin" required>
                             <option value="" disabled>Pilih</option>
                             <option value='laki-laki' <?= $user['jenis_kelamin'] == 'laki-laki' ? 'selected' : '' ?>>Laki-Laki</option>
-                            <option value='perempuan' <?= $user['jenis_kelamin'] == 'perempuan' ? 'selected' : '' ?>>Perempuan</option>          
+                            <option value='perempuan' <?= $user['jenis_kelamin'] == 'perempuan' ? 'selected' : '' ?>>Perempuan</option>
                         </select>
                         <?php if ($validation->getError('jenis_kelamin')) : ?>
                             <div class='text text-danger mt-2'>
@@ -115,3 +119,24 @@
 
 </div>
 <!-- /.container-fluid -->
+
+
+<!-- Foto Profile Modal -->
+<div class="modal fade" id="fotoProfileModal" tabindex="-1" role="dialog" aria-labelledby="fotoProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fotoProfileModalLabel">Foto Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img class="mx-auto" id="img-profile" src="<?= base_url(); ?>/assets/uploads/img/profile/<?= $user['foto']; ?>" alt="<?= $user['foto']; ?>" height="100%" width="100%">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

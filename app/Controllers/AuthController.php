@@ -38,8 +38,8 @@ class AuthController extends BaseController
 
                 $cek = $this->UserModel->where($where)->countAllResults();
                 if ($cek <= 0) {
-                    session()->setFlashdata('gagal', 'Username dan Password Anda Salah');
-                    return redirect()->to('/login');
+                    session()->setFlashdata('error', 'Username Atau Password Anda Salah');
+                    return redirect()->to('/');
                 } else {
                     $cek_akun = $this->UserModel->where($where)->first();
                     $id = $cek_akun["id"];
@@ -50,6 +50,7 @@ class AuthController extends BaseController
                     ];
 
                     session()->set($data_session);
+                    session()->setFlashdata('success','Selamat Datang Kembali ' . $cek_akun['nama']);
                     return redirect()->to('/dashboard');
                 }
             }
@@ -59,8 +60,8 @@ class AuthController extends BaseController
     public function logout()
     {
         session()->destroy();
-        session()->setFlashdata('gagal', 'Berhasil Logout');
-        return redirect()->to('/');
+        session()->setFlashdata('success', 'Berhasil Logout!');
+        return redirect()->to('/')->withInput();
     }
 
 }

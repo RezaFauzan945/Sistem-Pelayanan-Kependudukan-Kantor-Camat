@@ -15,6 +15,16 @@
                                     <h2 class="h4 text-gray-900 mb-4">Selamat Datang di Sistem Informasi Pelayanan Masyarakat Kependudukan</h2>
                                     <p>Silahakan Masuk Terlebih Dahulu</p>
                                 </div>
+                                <?php if (session()->getFlashdata('success') == TRUE) : ?>
+                                    <div class="alert alert-success">
+                                        <span><?= session()->getFlashdata('success'); ?></span>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if (session()->getFlashdata('error') == TRUE) : ?>
+                                    <div class="alert alert-danger">
+                                        <span><?= session()->getFlashdata('error'); ?></span>
+                                    </div>
+                                <?php endif; ?>
                                 <form action="<?= base_url(); ?>/login" method="POST" class="user">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user" id="Username" placeholder="Masukan Username Anda" name="username">

@@ -33,9 +33,15 @@ class AdminController extends BaseController
             'user' => $this->UserModel->where('id', session()->get('id'))->first(),
             'validation' => \Config\Services::validation(),
         ];
-        echo view('templates/header1', $data);
-        echo view('Admin/profile');
-        echo view('templates/footer1');
+        if(session()->get('id') == $id)
+        {
+            echo view('templates/header1', $data);
+            echo view('Admin/profile');
+            echo view('templates/footer1');
+        }else
+        {
+            return redirect()->to('/profile/'.session()->get('id'));
+        }
     }
 
     public function update_profile($id)
