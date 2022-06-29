@@ -44,8 +44,9 @@ class AdminController extends BaseController
         }
     }
 
-    public function update_profile($id)
+    public function update_profile()
     {
+        $id = session()->get('id');
         $data = [
             'id'                   => $id,
             'nama'                 => $this->request->getPost('nama'),

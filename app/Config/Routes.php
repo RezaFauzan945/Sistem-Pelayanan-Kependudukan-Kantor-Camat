@@ -39,13 +39,16 @@ $routes->get('/', 'AuthController::login');
 $routes->post('/login', 'AuthController::login');
 $routes->get('/logout', 'AuthController::logout');
 // $routes->get('/pendaftaran', 'PagesController::pendaftaran');
+
 $routes->get('/form-pengajuan', 'PagesController::form_pengajuan');
 $routes->get('/tracking-pengajuan', 'PagesController::tracking_pengajuan');
-$routes->get('/dashboard', 'AdminController::index');
-$routes->get('/profile/(:num)', 'AdminController::profile/$1');
-$routes->post('/profile/(:num)', 'AdminController::update_profile/$1');
-$routes->get('/kelola-pengajuan', 'AdminController::kelola_pengajuan');
 $routes->post('/tracking-pengajuan', 'PagesController::pengajuan_tracked');
+
+$routes->get('/dashboard','AdminController::index',['filter' => 'authfilter']);
+$routes->get('/profile', 'AdminController::profile/'.session()->get('id'),['filter' => 'authfilter']);
+$routes->get('/profile/(:num)', 'AdminController::profile/$1',['filter' => 'authfilter']);
+$routes->post('/profile/(:num)', 'AdminController::update_profile/$1',['filter' => 'authfilter']);
+$routes->get('/kelola-pengajuan', 'AdminController::kelola_pengajuan',['filter' => 'authfilter']);
 
 /*
  * --------------------------------------------------------------------
