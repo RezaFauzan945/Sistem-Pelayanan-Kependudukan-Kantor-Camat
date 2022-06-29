@@ -124,7 +124,7 @@ class AdminController extends BaseController
                 'errors' => ['is_image' => 'Hanya Gambar Yang Diperbolehkan!']
             ];
             $file =$this->request->getFile('foto');
-            $data['foto'] = $file->getName();
+            $data['foto'] = $file->getRandomName();
         }
 
         if (!$this->validate($validation)) {
@@ -134,8 +134,12 @@ class AdminController extends BaseController
             if ( $this->request->getFile('foto')->getError() == 4) {
                 
             } else {
-                $file->move('assets/uploads/img/profile/');
-                unlink('assets/uploads/img/profile/'.$dataLama['foto']);
+                $file->move('assets/uploads/img/profile/',$data['foto']);
+                if( $dataLama['foto'] == 'man.png' || $dataLama['foto'] == 'woman.png' )
+                {
+                } else {
+                    unlink('assets/uploads/img/profile/'.$dataLama['foto']);
+                }
             }
             session()->setFlashdata('success', 'Berhasil Diupdate!');
             return redirect()->to('profile/' . $id);
