@@ -16,24 +16,15 @@ class PagesController extends BaseController
         // $this->M_Penduduk = new M_Penduduk;
         helper('form');
     }
-    public function index()
-    {
-        $data = [
-            'title' => 'Sistem Pelayanan | Silahkan Masuk Dengan Akun Anda',
-        ];
-        echo view('templates/header', $data);
-        echo view('auth/login');
-        echo view('templates/footer');
-    }
-    public function pendaftaran()
-    {
-        $data = [
-            'title' => 'Sistem Pelayanan | Halaman Pendaftaran',
-        ];
-        echo view('templates/header', $data);
-        echo view('auth/register');
-        echo view('templates/footer');
-    }
+    // public function pendaftaran()
+    // {
+    //     $data = [
+    //         'title' => 'Sistem Pelayanan | Halaman Pendaftaran',
+    //     ];
+    //     echo view('templates/header', $data);
+    //     echo view('auth/register');
+    //     echo view('templates/footer');
+    // }
     public function form_pengajuan()
     {
         $data = [
@@ -53,6 +44,7 @@ class PagesController extends BaseController
                     'AKU' => 'Ubah Akta Kelahiran',
                 ],
             ],
+            'user' => $this->UserModel->where('id', session()->get('id'))->first(),
         ];
         echo view('templates/header1', $data);
         echo view('pages/form_pengajuan', $data);

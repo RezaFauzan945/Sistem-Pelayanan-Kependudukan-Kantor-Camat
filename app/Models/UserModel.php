@@ -10,6 +10,16 @@ class UserModel extends Model
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
 
+    protected $allowedFields = [
+        'password',
+        'nama',
+        'jenis_kelamin',
+        'alamat',
+        'tempat_tanggal_lahir',
+        'foto',
+        'role',
+    ];
+
     // Validation
     protected $validationRules      = [];
     protected $validationMessages   = [];

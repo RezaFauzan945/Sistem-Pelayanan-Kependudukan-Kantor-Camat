@@ -12,23 +12,24 @@
                         <div class="col-lg">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Selamat Datang di Sistem Informasi Pelayanan Masyarakat Kependudukan | Silahakan Login Terlebih Dahulu</h1>
+                                    <h2 class="h4 text-gray-900 mb-4">Selamat Datang di Sistem Informasi Pelayanan Masyarakat Kependudukan</h2>
+                                    <p>Silahakan Masuk Terlebih Dahulu</p>
                                 </div>
-                                <form class="user">
+                                <form action="<?= base_url(); ?>/login" method="POST" class="user">
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" id="email" placeholder="Masukan Email Anda" name="email">
+                                        <input type="text" class="form-control form-control-user" id="Username" placeholder="Masukan Username Anda" name="username">
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user" id="password" placeholder="Password" name="password">
                                     </div>
-                                    <a href="<?= base_url(); ?>/form-pengajuan" class="btn btn-primary btn-user btn-block">
-                                        Login
-                                    </a>
+                                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        Masuk
+                                    </button>
                                 </form>
                                 <hr>
-                                <div class="text-center">
-                                    <a class="small" href="<?= base_url(); ?>/register">Buat Account!</a>
-                                </div>
+                                <!-- <div class="text-center">
+                                    <a class="small" href="<?= base_url(); ?>/pendaftaran">Buat Akun!</a>
+                                </div> -->
                             </div>
                         </div>
                     </div>
