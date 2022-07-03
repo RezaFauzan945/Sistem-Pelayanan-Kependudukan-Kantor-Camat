@@ -10,9 +10,8 @@ class Pengajuan extends Migration
     {
         $this->forge->addField([
             'id_pengajuan' => [
-                'type'           => 'INT',
-                'unsigned'       => true,
-                'auto_increment' => true
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
             ],
             'id_masyarakat' =>[
                 'type'       => 'INT',
@@ -43,8 +42,15 @@ class Pengajuan extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'status' => [
+                'type'       => 'INT',
+                'constraint' => '1',
+            ],
             'tanggal_pengajuan' => [
-                'type'       => 'DATETIME',
+                'type'       => 'DATE',
+            ],
+            'updated_at' => [
+                'type'       => 'DATE',
             ],
         ]);
         $this->forge->addKey('id_pengajuan', true);

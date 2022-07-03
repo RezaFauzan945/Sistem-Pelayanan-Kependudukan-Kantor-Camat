@@ -33,7 +33,6 @@ class AuthController extends BaseController
 
                 $where = [
                     'username' => $user,
-                    'password' => $pass
                 ];
 
                 $cek = $this->UserModel->where($where)->countAllResults();
@@ -42,16 +41,23 @@ class AuthController extends BaseController
                     return redirect()->to('/');
                 } else {
                     $cek_akun = $this->UserModel->where($where)->first();
-                    $id = $cek_akun["id"];
-                    $role = $cek_akun["role"];
-                    $data_session = [
-                        'id' => $id,
-                        'role' => $role
-                    ];
-
-                    session()->set($data_session);
-                    session()->setFlashdata('success','Selamat Datang Kembali ' . $cek_akun['nama']);
-                    return redirect()->to('/dashboard');
+                    if(password_verify($pass,$cek_akun['password']))
+                    {
+                        $id = $cek_akun["id"];
+                        $role = $cek_akun["role"];
+                        $data_session = [
+                            'id' => $id,
+                            'role' => $role
+                        ];
+    
+                        session()->set($data_session);
+                        session()->setFlashdata('success','Selamat Datang Kembali ' . $cek_akun['nama']);
+                        return redirect()->to('/dashboard');
+                    } else
+                    {
+                        session()->setFlashdata('error', 'Username Atau Password Anda Salah');
+                    return redirect()->to('/'); 
+                    }
                 }
             }
         }

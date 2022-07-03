@@ -41,6 +41,7 @@ $routes->get('/logout', 'AuthController::logout');
 // $routes->get('/pendaftaran', 'PagesController::pendaftaran');
 
 $routes->get('/form-pengajuan', 'PagesController::form_pengajuan');
+$routes->post('/form-pengajuan', 'PagesController::pengajuan');
 $routes->get('/tracking-pengajuan', 'PagesController::tracking_pengajuan');
 $routes->post('/tracking-pengajuan', 'PagesController::pengajuan_tracked');
 
@@ -48,7 +49,18 @@ $routes->get('/dashboard','AdminController::index',['filter' => 'authfilter']);
 $routes->get('/profile', 'AdminController::profile/'.session()->get('id'),['filter' => 'authfilter']);
 $routes->get('/profile/(:num)', 'AdminController::profile/$1',['filter' => 'authfilter']);
 $routes->post('/profile/(:num)', 'AdminController::update_profile/$1',['filter' => 'authfilter']);
+$routes->get('/ganti-password/(:num)', 'AdminController::ganti_password/$1',['filter' => 'authfilter']);
+$routes->post('/ganti-password/(:num)', 'AdminController::update_password/$1',['filter' => 'authfilter']);
 $routes->get('/kelola-pengajuan', 'AdminController::kelola_pengajuan',['filter' => 'authfilter']);
+$routes->get('/kelola-penduduk', 'AdminController::kelola_penduduk',['filter' => 'authfilter']);
+$routes->get('/kelola-user', 'AdminController::kelola_user',['filter' => 'authfilter']);
+$routes->get('/kelola-user/tambah', 'AdminController::kelola_user_tambah',['filter' => 'authfilter']);
+// $routes->get('/kelola-user/edit/(:any)', 'AdminController::kelola_user_update/$1',['filter' => 'authfilter']);
+$routes->post('/kelola-user/tambah', 'AdminController::create_user',['filter' => 'authfilter']);
+$routes->post('/pengajuan/update_status/(:any)', 'PagesController::update_status_pengajuan/$1',['filter' => 'authfilter']);
+$routes->delete('/pengajuan/hapusPengajuan/(:any)', 'PagesController::hapus_pengajuan/$1',['filter' => 'authfilter']);
+$routes->delete('/masyarakat/hapusMasyarakat/(:any)', 'AdminController::hapus_masyarakat/$1',['filter' => 'authfilter']);
+$routes->delete('/user/hapusUser/(:any)', 'AdminController::hapus_user/$1',['filter' => 'authfilter']);
 
 /*
  * --------------------------------------------------------------------

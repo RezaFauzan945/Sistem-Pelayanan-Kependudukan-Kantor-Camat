@@ -3,16 +3,6 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Profile</h1>
-    <?php if (session()->getFlashdata('success') == TRUE) : ?>
-        <div class="alert alert-success">
-            <span><?= session()->getFlashdata('success'); ?></span>
-        </div>
-    <?php endif; ?>
-    <?php if (session()->getFlashdata('error') == TRUE) : ?>
-        <div class="alert alert-danger">
-            <span><?= session()->getFlashdata('error'); ?></span>
-        </div>
-    <?php endif; ?>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Edit Profile</h6>
@@ -37,7 +27,7 @@
                         <input class='form-control' id="email" type="text" value="<?= $user['email']; ?>" disabled required>
                     </div>
 
-                    <div class="col-lg-6 col-sm-12 mt-2">
+                    <!-- <div class="col-lg-6 col-sm-12 mt-2">
                         <label for="password" class="form-label">Password Baru</label>
                         <input class='form-control' id="password" name="password" type="password" minlength="8">
                         <?php if ($validation->getError('password')) : ?>
@@ -55,7 +45,7 @@
                                 <?= $error = $validation->getError('password_lama'); ?>
                             </div>
                         <?php endif ?>
-                    </div>
+                    </div> -->
 
                     <div class="col-lg-6 col-sm-12 mt-2">
                         <label for="nama" class="form-label">Nama</label>

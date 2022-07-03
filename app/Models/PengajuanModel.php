@@ -8,7 +8,15 @@ class PengajuanModel extends Model
 {
     protected $table            = 'pengajuan';
     protected $primaryKey       = 'id_pengajuan';
-    protected $useAutoIncrement = true;
+    protected $useAutoIncrement = false;
+    protected $allowedFields    = [
+        'id_pengajuan',
+        'id_masyarakat',
+        'jenis_pengajuan',
+        'kategori',
+        'file',
+        'status',
+    ];
 
     // Dates
     protected $useTimestamps = true;

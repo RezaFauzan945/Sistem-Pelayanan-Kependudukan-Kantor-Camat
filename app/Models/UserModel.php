@@ -11,6 +11,8 @@ class UserModel extends Model
     protected $useAutoIncrement = true;
 
     protected $allowedFields = [
+        'username',
+        'email',
         'password',
         'nama',
         'jenis_kelamin',

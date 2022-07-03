@@ -2,3 +2,46 @@
     vertical-align: middle;
     text-align: center;
 }
+table.dataTable>tbody>tr.child span.dtr-title {
+    display: inline-block;
+    min-width: 250px;
+    font-weight: 1000;
+}
+table.dataTable>tbody>tr.child ul {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+table.dataTable>tbody>tr.child ul li {
+    border-bottom: 1px solid #efefef;
+    padding: 0.5em 0;
+}
+
+table.dataTable>tbody>tr.child ul li:first-child {
+    padding-top: 0;
+}
+
+table.dataTable>tbody>tr.child ul li:last-child {
+    border-bottom: none;
+}
+table.dataTable>tbody>tr.child ul li {
+    border-bottom: 1px solid #efefef;
+    padding: 0.5em 0;
+}
+
+table.dataTable>tbody>tr.child ul li:first-child {
+    padding-top: 0;
+}
+
+table.dataTable>tbody>tr.child ul li:last-child {
+    border-bottom: none;
+}
+
+
+/*!
+ * This Sistem Pelayanan Kependudukan Made By Reza Fauzan
+ * If Any Something Bug Happens or need any update Just Text me to Wa.me/+6285659766175 or
+ * email me to rezafauzan593@gmail.com
+*/
