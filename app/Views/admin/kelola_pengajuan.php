@@ -9,6 +9,28 @@
             <h6 class="m-0 font-weight-bold text-primary">List Pengajuan</h6>
         </div>
         <div class="card-body">
+            <div class="row">
+                <form action="/kelola-pengajuan/export" method="POST">
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="dari">Dari :</label>
+                                <input required type="date" name="dari" id="dari">
+                            </td>
+                            <td>
+                                <label for="hingga">Hingga :</label>
+                                <input required type="date" name="hingga" id="hingga">
+                            </td>
+                            <td>
+                                <button type="submit" name="submit" value="excel"  class="btn btn-success ml-4"><i class="fa-solid fa-file-export"></i>Export</button>
+                                <button type="submit" name="submit" value="pdf"    class="btn btn-danger ml-4"><i class="fa-solid fa-print"></i>Cetak</button>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
             <div class="table-responsive">
                 <table class="table datatable table-bordered" id="table" width="100%" cellspacing="0">
                     <thead>

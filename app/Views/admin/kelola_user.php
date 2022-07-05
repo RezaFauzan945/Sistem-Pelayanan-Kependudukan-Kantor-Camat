@@ -9,7 +9,27 @@
             <h6 class="m-0 font-weight-bold text-primary">List User</h6>
         </div>
         <div class="card-body">
-            <a href="/kelola-user/tambah" class="btn btn-primary mb-4">Tambah User</a>
+            <a href="/kelola-user/tambah" class="btn btn-primary ml-4 mr-2 my-2">Tambah User</a>
+            <div class="row  mb-4">
+                <form action="/kelola-user/export" method="POST">
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="dari">Dari :</label>
+                                <input required type="date" name="dari" id="dari">
+                            </td>
+                            <td>
+                                <label for="hingga">Hingga :</label>
+                                <input required type="date" name="hingga" id="hingga">
+                            </td>
+                            <td>
+                                <button type="submit" name="submit" value="excel" class="btn btn-success ml-4"><i class="fa-solid fa-file-export"></i>Export</button>
+                                <button type="submit" name="submit" value="pdf" class="btn btn-danger ml-4"><i class="fa-solid fa-print"></i>Cetak</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
             <div class="table-responsive">
                 <table class="table datatable table-bordered" id="table" width="100%" cellspacing="0">
                     <thead>

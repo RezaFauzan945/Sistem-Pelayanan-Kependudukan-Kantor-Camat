@@ -6,6 +6,8 @@ use App\Models\UserModel;
 use App\Models\PengajuanModel;
 use App\Models\MasyarakatModel;
 use App\Controllers\BaseController;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class AdminController extends BaseController
 {
@@ -424,8 +426,250 @@ class AdminController extends BaseController
         session()->setFlashdata('success', 'Berhasil Dihapus!');
         return redirect()->to('/kelola-user')->withInput();
     }
-}
 
+    public function export_user()
+    {
+        $dari   = $this->request->getPost('dari');
+        $hingga = $this->request->getPost('hingga');
+        $submit = $this->request->getPost('submit');
+        $data   = $this->UserModel->query("SELECT * FROM user WHERE created_at BETWEEN '" . date('Y-m-d', strtotime($dari)) . "' AND '" . date('Y-m-d', strtotime($hingga)) . "'")->getResultArray();
+
+        if ($submit == 'excel') {
+
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+
+            $sheet->getStyle('A1')->getFont()->setBold(true);
+            $sheet->getStyle('B1')->getFont()->setBold(true);
+            $sheet->getStyle('C1')->getFont()->setBold(true);
+            $sheet->getStyle('D1')->getFont()->setBold(true);
+            $sheet->getStyle('E1')->getFont()->setBold(true);
+            $sheet->getStyle('F1')->getFont()->setBold(true);
+            $sheet->getStyle('G1')->getFont()->setBold(true);
+            $sheet->getStyle('H1')->getFont()->setBold(true);
+            $sheet->getStyle('I1')->getFont()->setBold(true);
+            $sheet->getStyle('J1')->getFont()->setBold(true);
+            $sheet->getStyle('K1')->getFont()->setBold(true);
+            $sheet->getStyle('L1')->getFont()->setBold(true);
+
+            $style = [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+            ];
+
+            $sheet
+                ->setCellValue('A1', 'ID')
+                ->setCellValue('B1', 'USERNAME')
+                ->setCellValue('C1', 'EMAIL')
+                ->setCellValue('D1', 'NAMA')
+                ->setCellValue('E1', 'JENIS KELAMIN')
+                ->setCellValue('F1', 'ALAMAT')
+                ->setCellValue('G1', 'TEMPAT TANGGALLAHIR')
+                ->setCellValue('H1', 'FOTO')
+                ->setCellValue('I1', 'ROLE')
+                ->setCellValue('J1', 'CREATED AT')
+                ->setCellValue('K1', 'UPDATED AT');
+
+            $sheet->getColumnDimension('A')->setAutoSize(true);
+            $sheet->getColumnDimension('B')->setAutoSize(true);
+            $sheet->getColumnDimension('C')->setAutoSize(true);
+            $sheet->getColumnDimension('D')->setAutoSize(true);
+            $sheet->getColumnDimension('E')->setAutoSize(true);
+            $sheet->getColumnDimension('F')->setAutoSize(true);
+            $sheet->getColumnDimension('G')->setAutoSize(true);
+            $sheet->getStyle('A:K')->applyFromArray($style);
+
+            $column = 2;
+            foreach ($data as $dt) {
+                $spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('A' . $column, $dt['id'])
+                    ->setCellValue('B' . $column, $dt['username'])
+                    ->setCellValue('C' . $column, $dt['email'])
+                    ->setCellValue('D' . $column, $dt['nama'])
+                    ->setCellValue('E' . $column, $dt['jenis_kelamin'])
+                    ->setCellValue('F' . $column, $dt['alamat'])
+                    ->setCellValue('G' . $column, $dt['tempat_tanggal_lahir'])
+                    ->setCellValue('H' . $column, base_url() . '/assets/uploads/img/profile/' . $dt['foto'])
+                    ->setCellValue('I' . $column, $dt['role'])
+                    ->setCellValue('J' . $column, $dt['created_at'])
+                    ->setCellValue('K' . $column, $dt['updated_at']);
+                $column++;
+            }
+
+            $writer = new Xlsx($spreadsheet);
+            $filename = date('Y-m-d-His') . '-Data-User';
+
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
+            header('Cache-Control: max-age=0');
+
+            return $writer->save("php://output");
+        } else {
+            $dari   = $this->request->getPost('dari');
+            $hingga = $this->request->getPost('hingga');
+            $data   = [
+                'users'   => $this->UserModel->query("SELECT * FROM user WHERE created_at BETWEEN '" . date('Y-m-d', strtotime($dari)) . "' AND '" . date('Y-m-d', strtotime($hingga)) . "'")->getResultArray()
+            ];
+
+            return view('pages/cetak_user', $data);
+        }
+    }
+
+    public function export_masyarakat()
+    {
+        $dari   = $this->request->getPost('dari');
+        $hingga = $this->request->getPost('hingga');
+        $submit = $this->request->getPost('submit');
+        $data   = $this->MasyarakatModel->query("SELECT * FROM masyarakat WHERE created_at BETWEEN '" . date('Y-m-d', strtotime($dari)) . "' AND '" . date('Y-m-d', strtotime($hingga)) . "'")->getResultArray();
+
+        if ($submit == 'excel') {
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+
+            $sheet->getStyle('A1')->getFont()->setBold(true);
+            $sheet->getStyle('B1')->getFont()->setBold(true);
+            $sheet->getStyle('C1')->getFont()->setBold(true);
+            $sheet->getStyle('D1')->getFont()->setBold(true);
+            $sheet->getStyle('E1')->getFont()->setBold(true);
+            $sheet->getStyle('F1')->getFont()->setBold(true);
+            $sheet->getStyle('G1')->getFont()->setBold(true);
+
+            $style = [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+            ];
+
+
+            $sheet
+                ->setCellValue('A1', 'ID')
+                ->setCellValue('B1', 'NIK')
+                ->setCellValue('C1', 'NAMA')
+                ->setCellValue('D1', 'ALAMAT')
+                ->setCellValue('E1', 'JENIS_KELAMIN')
+                ->setCellValue('F1', 'NO HP')
+                ->setCellValue('G1', 'TERCATAT PADA');
+
+            $sheet->getColumnDimension('A')->setAutoSize(true);
+            $sheet->getColumnDimension('B')->setAutoSize(true);
+            $sheet->getColumnDimension('C')->setAutoSize(true);
+            $sheet->getColumnDimension('D')->setAutoSize(true);
+            $sheet->getColumnDimension('E')->setAutoSize(true);
+            $sheet->getColumnDimension('F')->setAutoSize(true);
+            $sheet->getColumnDimension('G')->setAutoSize(true);
+            $sheet->getStyle('A:G')->applyFromArray($style);
+
+            $column = 2;
+            foreach ($data as $dt) {
+                $spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('A' . $column, $dt['id_masyarakat'])
+                    ->setCellValue('B' . $column, "'" . $dt['NIK'] . "'")
+                    ->setCellValue('C' . $column, $dt['nama'])
+                    ->setCellValue('D' . $column, $dt['alamat'])
+                    ->setCellValue('E' . $column, $dt['jenis_kelamin'])
+                    ->setCellValue('F' . $column, "'" . $dt['no_hp'] . "'")
+                    ->setCellValue('G' . $column, $dt['created_at']);
+                $column++;
+            }
+
+            $writer = new Xlsx($spreadsheet);
+            $filename = date('Y-m-d-His') . '-Data-Masyarakat';
+
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
+            header('Cache-Control: max-age=0');
+
+            return $writer->save("php://output");
+        } else {
+            $dari   = $this->request->getPost('dari');
+            $hingga = $this->request->getPost('hingga');
+            $data   = [
+                'masyarakat'   => $this->MasyarakatModel->query("SELECT * FROM masyarakat WHERE created_at BETWEEN '" . date('Y-m-d', strtotime($dari)) . "' AND '" . date('Y-m-d', strtotime($hingga)) . "'")->getResultArray()
+            ];
+
+            return view('pages/cetak_masyarakat', $data);
+        }
+    }
+
+    public function export_pengajuan()
+    {
+        $dari   = $this->request->getPost('dari');
+        $hingga = $this->request->getPost('hingga');
+        $submit = $this->request->getPost('submit');
+        $data   = $this->PengajuanModel->query("SELECT * FROM pengajuan WHERE tanggal_pengajuan BETWEEN '" . date('Y-m-d', strtotime($dari)) . "' AND '" . date('Y-m-d', strtotime($hingga)) . "'")->getResultArray();
+
+        if ($submit == 'excel') {
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+
+            $sheet->getStyle('A1')->getFont()->setBold(true);
+            $sheet->getStyle('B1')->getFont()->setBold(true);
+            $sheet->getStyle('C1')->getFont()->setBold(true);
+            $sheet->getStyle('D1')->getFont()->setBold(true);
+            $sheet->getStyle('E1')->getFont()->setBold(true);
+            $sheet->getStyle('F1')->getFont()->setBold(true);
+            $sheet->getStyle('G1')->getFont()->setBold(true);
+
+            $style = [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+            ];
+
+            $sheet
+                ->setCellValue('A1', 'ID_PENGAJUAN')
+                ->setCellValue('B1', 'ID_MASYARAKAT')
+                ->setCellValue('C1', 'KATEGORI')
+                ->setCellValue('D1', 'FILE')
+                ->setCellValue('E1', 'STATUS')
+                ->setCellValue('F1', 'TANGGAL_PENGAJUAN')
+                ->setCellValue('G1', 'Terakhir Diubah');
+
+            $sheet->getColumnDimension('A')->setAutoSize(true);
+            $sheet->getColumnDimension('B')->setAutoSize(true);
+            $sheet->getColumnDimension('C')->setAutoSize(true);
+            $sheet->getColumnDimension('D')->setAutoSize(true);
+            $sheet->getColumnDimension('E')->setAutoSize(true);
+            $sheet->getColumnDimension('F')->setAutoSize(true);
+            $sheet->getColumnDimension('G')->setAutoSize(true);
+            $sheet->getStyle('A:G')->applyFromArray($style);
+
+            $column = 2;
+            foreach ($data as $dt) {
+                $spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('A' . $column, $dt['id_pengajuan'])
+                    ->setCellValue('B' . $column, $dt['id_masyarakat'])
+                    ->setCellValue('C' . $column, $dt['kategori'])
+                    ->setCellValue('D' . $column, base_url() . '/assets/uploads/berkas/' . $dt['file'])
+                    ->setCellValue('E' . $column, $dt['status'])
+                    ->setCellValue('F' . $column, $dt['tanggal_pengajuan'])
+                    ->setCellValue('G' . $column, $dt['updated_at']);
+                $column++;
+            }
+
+            $writer = new Xlsx($spreadsheet);
+            $filename = date('Y-m-d-His') . '-Data-Pengajuan';
+
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
+            header('Cache-Control: max-age=0');
+
+            return $writer->save("php://output");
+        } else {
+            $dari   = $this->request->getPost('dari');
+            $hingga = $this->request->getPost('hingga');
+            $data   = [
+                'pengajuan' => $this->PengajuanModel->select("*")->where("tanggal_pengajuan BETWEEN '" . date('Y-m-d', strtotime($dari)) . "' AND '" . date('Y-m-d', strtotime($hingga)) . "'")->join('masyarakat', 'masyarakat.id_masyarakat=pengajuan.id_masyarakat')->orderBy("tanggal_pengajuan", "ASC")->findAll()
+            ];
+
+            return view('pages/cetak_pengajuan', $data);
+        }
+    }
+}
 
 /*!
  * This Sistem Pelayanan Kependudukan Made By Reza Fauzan

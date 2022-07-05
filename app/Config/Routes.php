@@ -54,6 +54,10 @@ $routes->post('/ganti-password/(:num)', 'AdminController::update_password/$1',['
 $routes->get('/kelola-pengajuan', 'AdminController::kelola_pengajuan',['filter' => 'authfilter']);
 $routes->get('/kelola-penduduk', 'AdminController::kelola_penduduk',['filter' => 'authfilter']);
 $routes->get('/kelola-user', 'AdminController::kelola_user',['filter' => 'authfilter']);
+$routes->post('kelola-user/export', 'AdminController::export_user',['filter' => 'authfilter']);
+$routes->post('kelola-pengajuan/export', 'AdminController::export_pengajuan',['filter' => 'authfilter']);
+$routes->get('kelola-pengajuan/cetak', 'AdminController::cetak_pengajuan',['filter' => 'authfilter']);
+$routes->post('kelola-masyarakat/export', 'AdminController::export_masyarakat',['filter' => 'authfilter']);
 $routes->get('/kelola-user/tambah', 'AdminController::kelola_user_tambah',['filter' => 'authfilter']);
 // $routes->get('/kelola-user/edit/(:any)', 'AdminController::kelola_user_update/$1',['filter' => 'authfilter']);
 $routes->post('/kelola-user/tambah', 'AdminController::create_user',['filter' => 'authfilter']);
